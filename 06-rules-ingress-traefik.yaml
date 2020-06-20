@@ -1,0 +1,52 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ingressroutetls1
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`hpa.proyectovictor.site`)
+    kind: Rule
+    services:
+      - name: php-apache-svc
+        port: 80
+  tls:
+    certResolver: myresolver
+ 
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ingressroutetls2
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`host1.proyectovictor.site`)
+    kind: Rule
+    services:
+    - name: hello-v1-svc
+      port: 80
+  tls:
+    certResolver: myresolver
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ingressroutetls3
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`host2.proyectovictor.site`)
+    kind: Rule
+    services:
+    - name: hello-v2-svc
+      port: 80
+  tls:
+    certResolver: myresolver
