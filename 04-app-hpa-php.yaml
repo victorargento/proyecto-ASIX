@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: php-apache
+  name: hpa-php
   labels:
-    app: php-apache
+    app: hpa-php
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: php-apache
+      app: hpa-php
   template:
     metadata:
       labels:
-        app: php-apache
+        app: hpa-php
     spec:
       containers:
       - name: php-apache
         image: k8s.gcr.io/hpa-example
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         resources:
           requests:
             memory: "64Mi"
@@ -33,10 +33,11 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: php-apache-svc
+  name: hpa-php-svc
 spec:
   selector:
-    app: php-apache
+    app: hpa-php
   ports:
   - protocol: TCP
     port: 80
+    targetPort: 80

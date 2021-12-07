@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-v1
+  name: host1
   labels:
-    app: hello-v1
+    app: host1
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: hello-v1
+      app: host1
   template:
     metadata:
       labels:
-        app: hello-v1
+        app: host1
     spec:
       containers:
-      - name: hello
+      - name: host1
         image: victorargento/hostname:host1
         ports:
         - containerPort: 8080
@@ -32,10 +32,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: hello-v1-svc
+  name: host1-svc
 spec:
   selector:
-    app: hello-v1
+    app: host1
   ports:
   - protocol: TCP
     port: 80
